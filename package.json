@@ -1,0 +1,43 @@
+{
+  "name": "Joel-Herold-portfolio",
+  "version": "0.1.0",
+  "description": "Workflow for personal portfolio website",
+  "homepage": "joelherold.work",
+  "main": "dist/index.html",
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ],
+  "scripts": {
+    "run": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.7",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^3.2.1",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "require-dir": "^1.0.0",
+    "terminal-kit": "^1.26.2"
+  },
+  "dependencies": {
+    "npm": "^5.10.0"
+  }
+}

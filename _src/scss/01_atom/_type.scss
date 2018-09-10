@@ -1,0 +1,31 @@
+
+// Heading font-size and line-height
+$heading-scale: 4;
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-size: $base-font-size + $heading-scale * (6 - $i);
+    line-height: $base-line-height + $heading-scale * (6 - $i);
+  }
+}
+
+sup {
+  font-size: 11px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.nobreak {
+  white-space: nowrap;
+}

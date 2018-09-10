@@ -1,0 +1,81 @@
+#table-barber {
+  thead {
+    tr:nth-of-type(2) {
+      th {
+        background: rgba(249, 199, 0, 1);
+      }
+    }
+    tr:not(:nth-of-type(1)){
+      th:nth-of-type(1){
+        background: rgba(249, 199, 0, .5);
+      }
+    }
+    th:not(:nth-of-type(1)){
+      text-align: center;
+    }
+  }
+  td {
+    text-align: center;
+  }
+}
+
+$_tableTotalColumns: 4;
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  background: #fff;
+  col {
+    &:nth-of-type(even) {
+      background-color: rgba(0,50,249, 0.35);
+    }
+  }
+  thead {
+    th, td {
+      &[colspan="#{$_tableTotalColumns}"] {
+        background: rgba(0,50,249,1);
+        color: #fff;
+      }
+    }
+  }
+  tbody {
+    th, td {
+      &[colspan="#{$_tableTotalColumns}"] {
+        background: rgba(0,50,249,.8);
+        color: #fff;
+      }
+    }
+  }
+  tfoot {
+    th, td {
+      &[colspan="#{$_tableTotalColumns}"] {
+        background: rgba(0,50,249,.8);
+        color: #fff;
+      }
+    }
+  }
+}
+
+$table-border-width: 1px;
+$table-border-color: #000;
+
+.table-bordered {
+  border: $table-border-width solid $table-border-color;
+  th,
+  td {
+    border: $table-border-width solid $table-border-color;
+  }
+  thead {
+    th,
+    td {
+      border-bottom-width:$table-border-width;
+    }
+  }
+}
+
+$table-striped-order: odd !default;
+.table-striped {
+  tbody tr:nth-of-type(#{$table-striped-order}) {
+    background-color: rgba(0,50,249, 0.15);
+  }
+}

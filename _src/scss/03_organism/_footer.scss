@@ -1,0 +1,10 @@
+
+// variables
+$height-footer:59px;
+
+#page-footer {
+  background: $green-elm;
+  display: flex;
+  height: $height-footer;
+  width: 100%;
+}

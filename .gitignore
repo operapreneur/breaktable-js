@@ -1,0 +1,14 @@
+# Ignore sass-cache files
+*.sass-cache*
+
+# Ignore . files and others.
+.DS_Store
+.bundle
+*.ini
+*.log
+apc.php
+error_log
+
+# Ignore node_modules bundle and vendor
+node_modules
+bower_components

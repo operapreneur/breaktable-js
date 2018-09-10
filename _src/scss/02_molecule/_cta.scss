@@ -1,0 +1,9 @@
+.cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include font-bold;
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
+}

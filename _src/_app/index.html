@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modules | Joel Herold</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+  </head>
+  <body id="modules">
+
+<!--
+
+data-breaktables="popup|integer"
+data-btcolumns="integer"
+data-btclass="broken-table|string"
+data-btidentifier="bt-[index]|inherit|string"
+data-btid="integer"
+
+ -->
+    <section>
+      <div id="table-barber-container" class="breaktableJS">
+        <table id="table-barber" class="table table-bordered table-striped" data-breaktables="2,3,4" data-btcolumns="4">
+          <!-- <colgroup>
+            <col span="1">
+            <col span="1">
+            <col span="1">
+            <col span="1">
+          </colgroup> -->
+          <thead>
+            <tr>
+              <th scope="row" colspan="4" class="text-center">The Barber of Seville</th>
+            </tr>
+            <tr>
+              <th scope="row">Type</th>
+              <th scope="col">Play</th>
+              <th scope="col" colspan="2">Opera</th>
+            </tr>
+            <tr>
+              <th scope="row">Author</th>
+              <th scope="col">Beaumarchais</th>
+              <th scope="col">Rossini</th>
+              <th scope="col">Paisiello</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr-dark">
+              <th scope="row" colspan="4">Roles</th>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">A Spanish grandee who is in love with Rosine</th>
+              <td colspan="3">Count Almaviva</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Barber of Seville</th>
+              <td colspan="3">Figaro</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Don Bartholo's ward</th>
+              <td>Rosine</td>
+              <td colspan="2">Rosina</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">A doctor and Rosine's guardian</th>
+              <td>Don Bartholo</td>
+              <td colspan="2">Bartolo</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">A musician who is Rosine's singing teacher</th>
+              <td>Don Bazile</td>
+              <td>Basilio</td>
+              <td>Don Basilio</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Bartholo's elderly servant</th>
+              <td>La Jeunesse</td>
+              <td>Berta</td>
+              <td>Giovinetto</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Another servant of Bartholo who is very lazy</th>
+              <td>L'Éveillé</td>
+              <td>Ambrogio</td>
+              <td>Svegliato</td>
+            </tr>
+            <tr data-btid="2">
+              <th scope="row" abbr="title">Almaviva's servant</th>
+              <td>N/A</td>
+              <td>Fiorello</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Notary</th>
+              <td colspan="3">Notary</td>
+            </tr>
+            <tr>
+              <th scope="row" abbr="title">Traditional Spanish municipal magistrate</th>
+              <td>An Alcade</td>
+              <td>Police Sergeant</td>
+              <td>Warden</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ol>
+        <li>
+          <a href="https://en.wikipedia.org/wiki/The_Barber_of_Seville_(play)" target="_blank">The Barber of Seville (play)</a>
+        </li>
+        <li>
+          <a href="https://en.wikipedia.org/wiki/The_Barber_of_Seville" target="_blank">The Barber of Seville (Rossini)</a>
+        </li>
+        <li>
+          <a href="https://en.wikipedia.org/wiki/The_Barber_of_Seville_(Paisiello)" target="_blank">The Barber of Seville (Paisiello)</a>
+        </li>
+      </ol>
+    </section>
+
+    <script type="text/javascript" src="/js/bundle.js"></script>
+  </body>
+</html>
