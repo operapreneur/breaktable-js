@@ -1,33 +1,21 @@
 
-@import "normalize";
-@import "variables";
-@import "typography";
-
-//Mixins
-@import "mixins";
-
-//Base
-@import "root";
-
 //////////////////////////////////////////////////////////////////
-// SASS structure inspired by http://atomicdesign.bradfrost.com/
+// Uses atomic design as a methodology for creating a design system.
+// http://bradfrost.com/blog/post/atomic-web-design/
 
-//Atom
-@import "01_atom/icons";
-@import "01_atom/images";
-@import "01_atom/tables";
-@import "01_atom/type";
+// 00_abstracts
+@import "00_abstracts/variables";
+@import "00_abstracts/typography";
 
-//Molecule
-@import "02_molecule/cta";
+// 01_vendors
+@import "01_vendors/normalize";
+@import "01_vendors/breaktables";
 
-//Organism
-@import "03_organism/header";
-@import "03_organism/section";
-@import "03_organism/footer";
+// 02_atom
+@import "02_atom/*.scss";
 
-//Template
-@import "04_template/post";
+// 03_organism
+@import "03_organism/*.scss";
 
-//Page
-@import "05_page/home";
+// 06_page
+@import "06_page/*.scss";

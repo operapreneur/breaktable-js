@@ -30,14 +30,14 @@ const getBreakTableContainers = () => {
         if (table[0].dataset.btcolumns) {
           buildBreakTables(i, table[0]);
         } else {
-          console.log("data-btcolumns must be set on the table");
+          console.log("ERROR: data-btcolumns attribute must be set on the table");
         }
       } else {
-        console.log("data-breaktable must be set on the table");
+        console.log("ERROR: data-breaktable attribute must be set on the table");
       }
 
     } else {
-      console.log("breakTableContainers must contain one table only");
+      console.log("ERROR: breakTableContainers must contain one table only");
     }
   }
 }
@@ -49,6 +49,9 @@ const buildBreakTables = (iBTcontainer, table) => {
   // SET table class name
   let btClass = setBTclassName(table)
 
+  // GET all existing class names
+  let classArray = getClassNames(table, btClass)
+
   // SET table ID name
   let btID = setBTidName(iBTcontainer, table)
 
@@ -56,18 +59,19 @@ const buildBreakTables = (iBTcontainer, table) => {
   let breakcolumns = JSON.parse("[" + table.dataset.breaktables + "]");
   let newTables = parseInt(breakcolumns.length) + 1;
 
-  // table.btcolumns
+  // GET total number of columns
+  let totalColumns = parseInt(table.dataset.btcolumns);
 
   // CREATE new tables
   for (let i = 1; i < newTables; i++) {
     let t = document.createElement('table');
-    t.className = btClass;
+    t.classList.add(...classArray)
     t.id = btID + '-' + [i];
 
     let tableNode = t;
 
     // args rule: parent > interval > child
-    addBTchildren(breakcolumns, table, i, tableNode);
+    addBTchildren(totalColumns, breakcolumns, table, i, tableNode);
 
     // console.log(tableNode);
     // console.dir(tableNode);
@@ -79,6 +83,13 @@ const buildBreakTables = (iBTcontainer, table) => {
 const setBTclassName = (table) => {
   let className = table.dataset.btclass;
   return (className) ? className : "broken-table";
+}
+
+const getClassNames = (table, btClass) => {
+  let classList = table.className.split(' ');
+  let classArray = [btClass];
+  classArray.push(...classList);
+  return classArray
 }
 
 // SET table ID: data-btidentifier="bt-[index]|inherit|string"
@@ -97,7 +108,7 @@ const setBTidName = (iBTcontainer, table) => {
 }
 
 // ADD table children
-const addBTchildren = (breakcolumns, table, tableIndex, tableNode) => {
+const addBTchildren = (totalColumns, breakcolumns, table, tableIndex, tableNode) => {
   let l = table.children.length;
   for (let i = 0; i < l; i++) {
 
@@ -108,12 +119,12 @@ const addBTchildren = (breakcolumns, table, tableIndex, tableNode) => {
 
     tableNode.appendChild(child);
 
-    addBTrows(breakcolumns, tableIndex, tableNode, i, table.children[i]);
+    addBTrows(totalColumns, breakcolumns, tableIndex, tableNode, i, table.children[i]);
   } // END for loop
 }
 
 // ADD table rows from child
-const addBTrows = (breakcolumns, tableIndex, tableNode, childIndex, childNode) => {
+const addBTrows = (totalColumns, breakcolumns, tableIndex, tableNode, childIndex, childNode) => {
   let rowIndex = 0; // Due to ignored rows and rowSpan(?) the number of rows will not always equal the row loop interval
   let rows = childNode.rows;
   let l = childNode.rows.length;
@@ -128,7 +139,7 @@ const addBTrows = (breakcolumns, tableIndex, tableNode, childIndex, childNode) =
       if (btid === true) {
         let row = addBTrow(tableNode, childNode, i);
         tableNode.children[childIndex].appendChild(row);
-        getBTcells(breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rows[i]);
+        getBTcells(totalColumns, breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rows[i]);
         rowIndex ++;
       } else {
         continue;
@@ -136,7 +147,7 @@ const addBTrows = (breakcolumns, tableIndex, tableNode, childIndex, childNode) =
     } else {
       let row = addBTrow(tableNode, childNode, i);
       tableNode.children[childIndex].appendChild(row);
-      getBTcells(breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rows[i]);
+      getBTcells(totalColumns, breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rows[i]);
       rowIndex ++;
     }
   } // END for loop
@@ -162,7 +173,7 @@ const addBTrow = (tableNode, child, index) => {
 }
 
 // GET table cells
-const getBTcells = (breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rowNode) => {
+const getBTcells = (totalColumns, breakcolumns, tableIndex, tableNode, childIndex, rowIndex, rowNode) => {
   let l = rowNode.children.length;
   let columnIndex = tableIndex - 1;
   columnIndex = breakcolumns[columnIndex]
@@ -174,24 +185,26 @@ const getBTcells = (breakcolumns, tableIndex, tableNode, childIndex, rowIndex, r
     let cellIndex = cell.cellIndex + 1;
     let tagName = getBTcellTagName(cell);
 
-    let appendCell = false;
+    let cellVals = {};
+    cellVals.appendCell = false;
 
     if (tagName === true ) { // if <th>
       let scope = getBTcellScope(cell);
       if (scope === 'col') {
         // cell = TH && scope=col
-        appendCell = getBTcellColSpan(columnIndex, cellInterval, cellIndex, cell, appendCell);
+        cellVals = getBTcellColSpan(totalColumns, columnIndex, cellInterval, cellIndex, cell);
       } else {
         // cell = TH && scope=row
-        appendCell = true;
+        cellVals = getBTcellRowSpan(totalColumns, cell);
+        cellVals.appendCell = true;
       }
     } else {
       // cell = TD
-      appendCell = getBTcellColSpan(columnIndex, cellInterval, cellIndex, cell, appendCell);
+      cellVals = getBTcellColSpan(totalColumns, columnIndex, cellInterval, cellIndex, cell);
     }
 
-    if (appendCell === true) {
-      let element = addBTcell(cell)
+    if (cellVals.appendCell === true) {
+      let element = addBTcell(cell, cellVals.cellColSpan)
       tableNode.children[childIndex].rows[rowIndex].appendChild(element);
     }
   }
@@ -201,12 +214,26 @@ const getBTcells = (breakcolumns, tableIndex, tableNode, childIndex, rowIndex, r
 const getBTcellTagName = cell => (cell.tagName == 'TH') ? true : false;
 const getBTcellScope = cell => cell.scope;
 
-const getBTcellColSpan = (columnIndex, cellInterval, cellIndex, cell, appendCell) => {
+const getBTcellRowSpan = (totalColumns, cell) => {
   let colSpan = cell.colSpan;
+  let cellColSpan = 1;
+
+  if (totalColumns == colSpan) {
+    cellColSpan = colSpan - 1;
+  }
+
+  return {cellColSpan};
+}
+
+const getBTcellColSpan = (totalColumns, columnIndex, cellInterval, cellIndex, cell) => {
+  let colSpan = cell.colSpan;
+  let cellColSpan = 1;
+  let appendCell = false;
 
   if (colSpan >= 2 ) {
     let spanLength = colSpan - 1;
     let spanMax = cellIndex + spanLength
+
     if ((cellIndex == cellInterval) && (columnIndex == cellInterval)) {
       appendCell = true;
     } else if ((spanMax >= columnIndex) && (columnIndex > cellInterval)) {
@@ -219,13 +246,17 @@ const getBTcellColSpan = (columnIndex, cellInterval, cellIndex, cell, appendCell
       appendCell = true;
     }
   }
-  return appendCell;
+
+  return {appendCell, cellColSpan};
 }
 
 // ADD table cell
-const addBTcell = (cell) => {
+const addBTcell = (cell, cellColSpan) => {
   let tagName = cell.tagName;
+  let classList = cell.className;
   let element = document.createElement(tagName);
+  element.className = classList;
+  element.colSpan = cellColSpan;
   element.innerHTML = cell.innerHTML;
 
   return element;

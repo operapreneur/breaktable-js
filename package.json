@@ -31,8 +31,10 @@
     "gulp-newer": "^1.4.0",
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^3.2.1",
+    "gulp-sass-glob": "^1.0.9",
     "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.6.4",
+    "gulp-touch-cmd": "0.0.1",
     "gulp-uglify": "^3.0.1",
     "require-dir": "^1.0.0",
     "terminal-kit": "^1.26.2"
