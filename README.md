@@ -8,6 +8,10 @@ There are a number of different approaches and techniques to responsive data tab
 ## TODO:
 - do not allow `<colgroup>`
 - add `rowspan` logic
+- add scope= `rowgroup` && `colgroup` logic
+
+## BUGS
+- first column in `<thead>` must be `scope=row`
 
 ## Basic Table rules
 1. Scope is only added to <th> elements

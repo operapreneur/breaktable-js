@@ -9,18 +9,36 @@
 
 const breakTableContainers = document.querySelectorAll('.breaktableJS');
 const lengthBreakTables = breakTableContainers.length;
+const windowWidth = window.innerWidth;
+const mobileBreakWidth = 768;
 
 // Handler when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+  windowWidthBreakTable();
+});
 
-  // Search doc for breaktable containers
-  if (breakTableContainers) {
-    getBreakTableContainers();
+window.addEventListener("resize", function () {
+  if (window.innerWidth < mobileBreakWidth) {
+    setBreakTableContainers();
   }
 });
 
-// Iterate over all breaktables
+// Check window width
+const windowWidthBreakTable = () => {
+  if (windowWidth < mobileBreakWidth) {
+    getBreakTableContainers();
+  }
+};
+
+// Search doc for breaktable containers
 const getBreakTableContainers = () => {
+  if (breakTableContainers) {
+    setBreakTableContainers();
+  }
+};
+
+// Iterate over all breaktables
+const setBreakTableContainers = () => {
   for (let i = 0; i < lengthBreakTables; i++) {
     let table = breakTableContainers[i].getElementsByTagName("table");
     let l = table.length;
@@ -191,6 +209,10 @@ const getBTcells = (totalColumns, breakcolumns, tableIndex, tableNode, childInde
     if (tagName === true) {
       // if <th>
       let scope = getBTcellScope(cell);
+
+      // TODO: how to handle scope= rowgroup && colgroup
+      // BUG: first column in thead must be scope=row
+
       if (scope === 'col') {
         // cell = TH && scope=col
         cellVals = getBTcellColSpan(totalColumns, columnIndex, cellInterval, cellIndex, cell);
@@ -253,9 +275,10 @@ const getBTcellColSpan = (totalColumns, columnIndex, cellInterval, cellIndex, ce
 // ADD table cell
 const addBTcell = (cell, cellColSpan) => {
   let tagName = cell.tagName;
-  let classList = cell.className;
   let element = document.createElement(tagName);
-  element.className = classList;
+
+  element.className = cell.className;
+  element.scope = cell.scope;
   element.colSpan = cellColSpan;
   element.innerHTML = cell.innerHTML;
 
